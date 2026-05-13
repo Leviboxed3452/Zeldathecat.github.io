@@ -10,18 +10,23 @@
       font-family:Arial, sans-serif;
       text-align:center;
       padding:40px;
+      overflow:hidden;
+      margin:0;
     }
 
     .box{
-      background:#2a2a2a;
+      background:#2a2a2ae0;
       max-width:700px;
       margin:auto;
       padding:30px;
       border-radius:20px;
       box-shadow:0 0 20px rgba(0,0,0,0.5);
+      position:relative;
+      z-index:10;
+      margin-top:40px;
     }
 
-    img{
+    .maincat{
       width:300px;
       border-radius:20px;
       margin-top:20px;
@@ -36,10 +41,64 @@
       font-size:22px;
       line-height:1.6;
     }
+
+    /* BACKGROUND FLOATING CATS */
+
+    .cat{
+      position:fixed;
+      width:80px;
+      opacity:0.25;
+      z-index:1;
+      pointer-events:none;
+      animation: float 20s linear infinite;
+    }
+
+    @keyframes float{
+      0%{
+        transform:translateY(100vh) rotate(0deg);
+      }
+
+      100%{
+        transform:translateY(-120vh) rotate(360deg);
+      }
+    }
+
+    .cat1{
+      left:5%;
+      animation-duration:18s;
+    }
+
+    .cat2{
+      left:20%;
+      animation-duration:25s;
+    }
+
+    .cat3{
+      left:40%;
+      animation-duration:20s;
+    }
+
+    .cat4{
+      left:60%;
+      animation-duration:30s;
+    }
+
+    .cat5{
+      left:80%;
+      animation-duration:22s;
+    }
+
   </style>
 </head>
 
 <body>
+
+  <!-- FLOATING BACKGROUND ZELDAS -->
+  <img src="1000000838.jpg" class="cat cat1">
+  <img src="1000000838.jpg" class="cat cat2">
+  <img src="1000000838.jpg" class="cat cat3">
+  <img src="1000000838.jpg" class="cat cat4">
+  <img src="1000000838.jpg" class="cat cat5">
 
   <div class="box">
 
@@ -53,8 +112,7 @@
       This is Zelda 🐱
     </p>
 
-    <!-- PUT YOUR CAT IMAGE LINK BELOW -->
-    <img src="1000000838.jpg">
+    <img src="1000000838.jpg" class="maincat">
 
     <p>
       She is still young and a pretty fat cat!
@@ -70,7 +128,8 @@
     <p>
       At night she makes random sounds because
       she wants a boyfriend.
-      -LJ (Love to dakota)
+      <br><br>
+      - LJ (Love to Dakota)
     </p>
 
   </div>
