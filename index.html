@@ -284,6 +284,103 @@
       0%   { opacity: 1; transform: scale(0.5); }
       100% { opacity: 0; transform: scale(2) translateY(-30px); }
     }
+
+    /* ── DAKOTA PANEL ── */
+    #dakota-panel {
+      display: none;
+      background: linear-gradient(135deg, #1a0a2e, #0d0d1a);
+      border: 2px solid #a78bfa;
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 35px 25px;
+      border-radius: 20px;
+      z-index: 10;
+      position: relative;
+      box-shadow: 0 0 40px rgba(167,139,250,0.25);
+      animation: dakotaGlow 3s ease-in-out infinite alternate;
+    }
+    @keyframes dakotaGlow {
+      from { box-shadow: 0 0 20px rgba(167,139,250,0.2); }
+      to   { box-shadow: 0 0 60px rgba(167,139,250,0.5); }
+    }
+    #dakota-panel h2 {
+      font-family: 'Fredoka One', cursive;
+      color: #c084fc;
+      font-size: 36px;
+      margin: 0 0 5px;
+    }
+    .dakota-sub { color: #a78bfa; font-size: 18px; margin: 0 0 25px; }
+    .izzy-card {
+      background: #1e1030;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid #7c3aed44;
+    }
+    .izzy-card h3 {
+      font-family: 'Fredoka One', cursive;
+      color: #e879f9;
+      font-size: 24px;
+      margin: 0 0 15px;
+    }
+    .izzy-img {
+      width: 280px;
+      border-radius: 16px;
+      border: 3px solid #a78bfa;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      display: block;
+      margin: 0 auto 15px;
+    }
+    .izzy-img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 25px rgba(167,139,250,0.5);
+    }
+    .izzy-badge {
+      display: inline-block;
+      background: #7c3aed;
+      color: white;
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    .izzy-desc { color: #ddd; font-size: 17px; margin: 10px 0; }
+    .izzy-facts {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+    }
+    .izzy-fact {
+      background: #2d1b4e;
+      border: 1px solid #7c3aed;
+      color: #c084fc;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+    .izzy-footer { color: #aaa; font-size: 17px; margin-top: 12px; }
+    #dakota-hearts {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+    .heart-float {
+      position: absolute;
+      font-size: 20px;
+      animation: heartRise linear forwards;
+      opacity: 0.6;
+    }
+    @keyframes heartRise {
+      0%   { transform: translateY(0) scale(1); opacity: 0.7; }
+      100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+    }
   </style>
 </head>
 <body>
@@ -381,6 +478,32 @@
   <img src="1000000838.jpg" style="width:200px;border-radius:15px;margin-top:10px;">
 </div>
 
+<!-- DAKOTA PANEL -->
+<div id="dakota-panel">
+  <div id="dakota-hearts"></div>
+  <h2>💜 For Dakota 💜</h2>
+  <p class="dakota-sub">The whole reason this website exists 🥺</p>
+  <div class="izzy-card">
+    <h3>🐱 Meet Izzy</h3>
+    <img src="IMG_4422.jpg" class="izzy-img" id="izzy-img">
+    <div class="izzy-badge">⁉️ IDENTITY: UNKNOWN</div>
+    <p class="izzy-desc">
+      This cat is unknown, most due to inconvenience I don't have information
+      but we can find some in this picture!
+    </p>
+    <div class="izzy-facts">
+      <div class="izzy-fact">😴 Very sleepy</div>
+      <div class="izzy-fact">🍑 Very chonk</div>
+      <div class="izzy-fact">🔍 Under investigation</div>
+    </div>
+    <p class="izzy-footer">
+      If you find any info please don't say anything 😄
+      <br><em style="color:#a78bfa;font-size:15px;">— LJ (Very interesting)</em>
+    </p>
+  </div>
+  <p style="color:#c084fc;font-size:22px;margin-top:20px;">Love to Dakota 💜</p>
+</div>
+
 <script>
 // ── MUSIC ──
 const music = document.getElementById('bg-music');
@@ -406,6 +529,7 @@ const secretMessages = {
   secret_room: '🚪 Secret room discovered!',
   meow:        '😼 Zelda heard you say meow!',
   night_mode:  '🌙 Night owl mode!',
+  dakota:      '💜 Dakota mode unlocked! A special someone appeared...',
 };
 function unlockSecret(key) {
   if (secretsFound.has(key)) return;
@@ -414,6 +538,7 @@ function unlockSecret(key) {
   updateSecretsDisplay();
   if (key === 'secret_room') document.getElementById('secret-panel').style.display = 'block';
   if (key === 'rainbow') rainbowMode();
+  if (key === 'dakota') showDakotaMode();
 }
 function showToast(msg) {
   const t = document.getElementById('secret-toast');
@@ -591,9 +716,10 @@ document.addEventListener('keydown', e => {
 let typedBuffer = '';
 document.addEventListener('keypress', e => {
   typedBuffer = (typedBuffer + e.key.toLowerCase()).slice(-10);
-  if (typedBuffer.includes('meow'))  { typedBuffer=''; unlockSecret('meow');  emojiRain('😸', 20); }
-  if (typedBuffer.includes('zelda')) { typedBuffer=''; unlockSecret('rainbow'); }
-  if (typedBuffer.includes('night')) { typedBuffer=''; unlockSecret('night_mode'); document.body.style.background='#000010'; }
+  if (typedBuffer.includes('meow'))   { typedBuffer=''; unlockSecret('meow');  emojiRain('😸', 20); }
+  if (typedBuffer.includes('zelda'))  { typedBuffer=''; unlockSecret('rainbow'); }
+  if (typedBuffer.includes('night'))  { typedBuffer=''; unlockSecret('night_mode'); document.body.style.background='#000010'; }
+  if (typedBuffer.includes('dakota')) { typedBuffer=''; unlockSecret('dakota'); emojiRain('💜', 30); }
 });
 
 // ── EMOJI RAIN ──
@@ -643,6 +769,51 @@ function rainbowMode() {
     document.getElementById('main-h1').style.color = `hsl(${hue},100%,75%)`;
     document.getElementById('main-h1').style.textShadow = `0 0 30px hsl(${hue},100%,60%)`;
   }, 20);
+}
+
+// ── DAKOTA MODE ──
+function showDakotaMode() {
+  const panel = document.getElementById('dakota-panel');
+  panel.style.display = 'block';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  // floating hearts inside panel
+  const heartsEl = document.getElementById('dakota-hearts');
+  const heartEmojis = ['💜','💫','✨','🐱','💕'];
+  setInterval(() => {
+    const h = document.createElement('div');
+    h.className = 'heart-float';
+    h.textContent = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
+    h.style.left = (Math.random()*90) + '%';
+    h.style.bottom = '10px';
+    h.style.animationDuration = (2 + Math.random()*2) + 's';
+    heartsEl.appendChild(h);
+    setTimeout(() => h.remove(), 4000);
+  }, 300);
+}
+
+// ── IZZY CLICK ──
+document.addEventListener('DOMContentLoaded', () => {
+  const izzy = document.getElementById('izzy-img');
+  if (izzy) {
+    let izzyclicks = 0;
+    izzy.addEventListener('click', e => {
+      izzyclicks++;
+      spawnCustom(e.clientX, e.clientY, '💜');
+      if (izzyclicks === 5)  showToast('😻 Izzy loves the attention!');
+      if (izzyclicks === 15) showToast('🔍 Still no new information found...');
+      if (izzyclicks === 30) showToast('🐱 Izzy: "please stop."');
+    });
+  }
+});
+
+function spawnCustom(x, y, emoji) {
+  const el = document.createElement('div');
+  el.className = 'paw-burst';
+  el.textContent = emoji;
+  el.style.left = (x - 14) + 'px';
+  el.style.top  = (y - 14) + 'px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 700);
 }
 </script>
 </body>
