@@ -3,149 +3,647 @@
 <head>
   <title>ZeldaTheCat</title>
   <link rel="icon" type="image/jpeg" href="1000000838.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
   <audio id="bg-music" loop>
     <source src="Jane!.mp3" type="audio/mpeg">
   </audio>
   <style>
-    body{
-      background:#1a1a1a;
-      color:white;
-      font-family:Arial, sans-serif;
-      text-align:center;
-      padding:40px;
-      margin:0;
+    :root {
+      --pink: #ffb6d9;
+      --hot: #ff6eb4;
+      --dark: #1a1a1a;
+      --card: #2a2a2ae0;
+      --purple: #c084fc;
+      --yellow: #fde68a;
     }
-    .box{
-      background:#2a2a2ae0;
-      max-width:700px;
-      margin:auto;
-      padding:30px;
-      border-radius:20px;
-      box-shadow:0 0 20px rgba(0,0,0,0.5);
-      position:relative;
-      z-index:10;
-      margin-top:40px;
+    * { box-sizing: border-box; }
+    body {
+      background: #1a1a1a;
+      color: white;
+      font-family: 'Nunito', sans-serif;
+      text-align: center;
+      padding: 40px 20px 100px;
+      margin: 0;
     }
-    .maincat{
-      width:300px;
-      border-radius:20px;
-      margin-top:20px;
+    h1 {
+      font-family: 'Fredoka One', cursive;
+      color: var(--pink);
+      font-size: 60px;
+      margin-bottom: 0;
+      text-shadow: 0 0 30px #ff6eb488;
+      cursor: pointer;
     }
-    h1{
-      color:#ffb6d9;
-      font-size:50px;
+    p { font-size: 20px; line-height: 1.6; }
+
+    .box {
+      background: var(--card);
+      max-width: 700px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255,182,217,0.15);
+      position: relative;
+      z-index: 10;
+      margin-top: 40px;
     }
-    p{
-      font-size:22px;
-      line-height:1.6;
+    .maincat {
+      width: 300px;
+      border-radius: 20px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: transform 0.1s;
     }
-    /* BACKGROUND FLOATING CATS */
-    .cat{
-      position:fixed;
-      width:80px;
-      opacity:0.25;
-      z-index:1;
-      pointer-events:none;
+    .maincat:active { transform: scale(0.95); }
+
+    .cat {
+      position: fixed;
+      width: 80px;
+      opacity: 0.25;
+      z-index: 1;
+      pointer-events: none;
       animation: float 20s linear infinite;
     }
-    @keyframes float{
-      0%{
-        transform:translateY(100vh) rotate(0deg);
-      }
-      100%{
-        transform:translateY(-120vh) rotate(360deg);
-      }
+    @keyframes float {
+      0%   { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-120vh) rotate(360deg); }
     }
-    .cat1{
-      left:5%;
-      animation-duration:18s;
+    .cat1 { left:5%;  animation-duration:18s; }
+    .cat2 { left:20%; animation-duration:25s; }
+    .cat3 { left:40%; animation-duration:20s; }
+    .cat4 { left:60%; animation-duration:30s; }
+    .cat5 { left:80%; animation-duration:22s; }
+
+    #play-btn {
+      position: fixed;
+      bottom: 20px; right: 20px;
+      z-index: 100;
+      background: var(--pink);
+      color: #1a1a1a;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      font-family: 'Nunito', sans-serif;
     }
-    .cat2{
-      left:20%;
-      animation-duration:25s;
+    #play-btn:hover { background: var(--hot); }
+
+    .section-title {
+      font-family: 'Fredoka One', cursive;
+      color: var(--purple);
+      font-size: 32px;
+      margin: 50px 0 10px;
     }
-    .cat3{
-      left:40%;
-      animation-duration:20s;
+
+    .game-card {
+      background: var(--card);
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      position: relative;
+      z-index: 10;
     }
-    .cat4{
-      left:60%;
-      animation-duration:30s;
+    .game-card h2 {
+      font-family: 'Fredoka One', cursive;
+      color: var(--pink);
+      font-size: 26px;
+      margin: 0 0 15px;
     }
-    .cat5{
-      left:80%;
-      animation-duration:22s;
+    .btn {
+      background: var(--pink);
+      color: #1a1a1a;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 5px;
+      font-family: 'Nunito', sans-serif;
+      transition: background 0.2s, transform 0.1s;
     }
-    #play-btn{
-      position:fixed;
-      bottom:20px;
-      right:20px;
-      z-index:100;
-      background:#ffb6d9;
-      color:#1a1a1a;
-      border:none;
-      border-radius:50px;
-      padding:10px 20px;
-      font-size:16px;
-      font-weight:bold;
-      cursor:pointer;
-      box-shadow:0 0 10px rgba(0,0,0,0.4);
+    .btn:hover { background: var(--hot); color: white; }
+    .btn:active { transform: scale(0.95); }
+    .btn.purple { background: var(--purple); color: #1a1a1a; }
+    .btn.purple:hover { background: #a855f7; color: white; }
+    .btn.yellow { background: var(--yellow); color: #1a1a1a; }
+    .btn.yellow:hover { background: #fbbf24; }
+
+    #click-count {
+      font-size: 48px;
+      font-family: 'Fredoka One', cursive;
+      color: var(--yellow);
     }
-    #play-btn:hover{
-      background:#ff8fc4;
+    #click-cat {
+      width: 160px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.08s;
+      user-select: none;
+      display: block;
+      margin: 10px auto;
+    }
+    #click-cat:active { transform: scale(0.88) rotate(-5deg); }
+    .click-milestone {
+      color: var(--purple);
+      font-weight: bold;
+      font-size: 18px;
+      min-height: 26px;
+    }
+
+    #quiz-question {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: var(--yellow);
+      font-weight: bold;
+    }
+    #quiz-options { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    #quiz-options .btn { min-width: 160px; }
+    #quiz-result { font-size: 20px; margin-top: 12px; min-height: 28px; }
+    #quiz-score { font-family: 'Fredoka One', cursive; color: var(--purple); font-size: 22px; }
+
+    #laser-area {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      background: #111;
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: crosshair;
+      margin: 10px 0;
+    }
+    #laser-dot {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      background: radial-gradient(circle, #ff4444, #ff000055);
+      border-radius: 50%;
+      box-shadow: 0 0 12px #ff0000;
+      transition: top 0.18s ease, left 0.18s ease;
+      cursor: pointer;
+    }
+    #laser-score { font-family: 'Fredoka One', cursive; color: var(--hot); font-size: 28px; }
+    #laser-timer { color: #aaa; font-size: 16px; }
+
+    #memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 360px;
+      margin: 15px auto;
+    }
+    .mem-card {
+      height: 75px;
+      border-radius: 10px;
+      background: #3a3a3a;
+      cursor: pointer;
+      font-size: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: transform 0.15s, background 0.2s;
+      border: 2px solid transparent;
+    }
+    .mem-card:hover { transform: scale(1.05); border-color: var(--pink); }
+    .mem-card.flipped { background: #2a2a4a; }
+    .mem-card.matched { background: #1a3a1a; border-color: #4ade80; cursor: default; }
+    #mem-status { font-size: 18px; color: var(--purple); min-height: 26px; margin-top: 8px; }
+    #mem-moves { color: #aaa; font-size: 16px; }
+
+    #secret-toast {
+      position: fixed;
+      top: 30px; left: 50%;
+      transform: translateX(-50%) translateY(-120px);
+      background: linear-gradient(135deg, #c084fc, #ff6eb4);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 40px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 20px;
+      z-index: 9999;
+      transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    #secret-toast.show { transform: translateX(-50%) translateY(0); }
+
+    .emoji-rain {
+      position: fixed;
+      top: -40px;
+      font-size: 30px;
+      z-index: 5;
+      pointer-events: none;
+      animation: rainFall linear forwards;
+    }
+    @keyframes rainFall {
+      to { top: 110vh; }
+    }
+
+    .trail-dot {
+      position: fixed;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.8;
+      transition: opacity 0.5s;
+    }
+
+    #secret-panel {
+      display: none;
+      background: linear-gradient(135deg, #2d1b4e, #1a1a1a);
+      border: 2px solid var(--purple);
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 25px;
+      border-radius: 20px;
+      z-index: 10;
+      position: relative;
+    }
+    #secret-panel h2 {
+      font-family: 'Fredoka One', cursive;
+      color: var(--purple);
+      font-size: 28px;
+    }
+    #secret-panel p { font-size: 17px; color: #ddd; }
+
+    .paw-burst {
+      position: fixed;
+      font-size: 28px;
+      pointer-events: none;
+      z-index: 9999;
+      animation: burstOut 0.7s ease-out forwards;
+    }
+    @keyframes burstOut {
+      0%   { opacity: 1; transform: scale(0.5); }
+      100% { opacity: 0; transform: scale(2) translateY(-30px); }
     }
   </style>
 </head>
 <body>
-  <button id="play-btn" onclick="toggleMusic()">▶ Play Music</button>
-  <script>
-    const music = document.getElementById('bg-music');
-    const btn = document.getElementById('play-btn');
-    // Try autoplay on first interaction anywhere on the page
-    document.addEventListener('click', function startMusic() {
-      music.play();
-      btn.textContent = '⏸ Pause Music';
-      document.removeEventListener('click', startMusic);
-    }, { once: true });
-    function toggleMusic() {
-      if (music.paused) {
-        music.play();
-        btn.textContent = '⏸ Pause Music';
-      } else {
-        music.pause();
-        btn.textContent = '▶ Play Music';
-      }
-    }
-  </script>
-  <img src="1000000838.jpg" class="cat cat1">
-  <img src="1000000838.jpg" class="cat cat2">
-  <img src="1000000838.jpg" class="cat cat3">
-  <img src="1000000838.jpg" class="cat cat4">
-  <img src="1000000838.jpg" class="cat cat5">
-  <div class="box">
-    <h1>ZeldaTheCat</h1>
-    <p>
-      Hi welcome to ZeldaTheCat!
-    </p>
-    <p>
-      This is Zelda 🐱
-    </p>
-    <img src="1000000838.jpg" class="maincat">
-    <p>
-      She is still young and a pretty fat cat!
-      She enjoys biting my legs and destroying the toilet paper,
-      and LOVES catnip and lasers.
-    </p>
-    <p>
-      She is really fat tho, she has a belly pouch
-      that swings when she walks.
-    </p>
-    <p>
-      At night she makes random sounds because
-      she wants a boyfriend.
-      <br><br>
-      - LJ (Love to Dakota)
-    </p>
+
+<div id="secret-toast">🐱 SECRET UNLOCKED!</div>
+<button id="play-btn" onclick="toggleMusic()">▶ Play Music</button>
+
+<img src="1000000838.jpg" class="cat cat1">
+<img src="1000000838.jpg" class="cat cat2">
+<img src="1000000838.jpg" class="cat cat3">
+<img src="1000000838.jpg" class="cat cat4">
+<img src="1000000838.jpg" class="cat cat5">
+
+<div class="box">
+  <h1 id="main-h1">ZeldaTheCat</h1>
+  <p>Hi welcome to ZeldaTheCat!</p>
+  <p>This is Zelda 🐱</p>
+  <img src="1000000838.jpg" class="maincat" id="main-zelda" title="click me...">
+  <p>
+    She is still young and a pretty fat cat!
+    She enjoys biting my legs and destroying the toilet paper,
+    and LOVES catnip and lasers.
+  </p>
+  <p>
+    She is really fat tho, she has a belly pouch
+    that swings when she walks.
+  </p>
+  <p>
+    At night she makes random sounds because
+    she wants a boyfriend.
+    <br><br>
+    - LJ (Love to Dakota)
+  </p>
+</div>
+
+<div class="section-title">🎮 Minigames</div>
+
+<!-- CAT CLICKER -->
+<div class="game-card">
+  <h2>😸 Cat Clicker</h2>
+  <p style="color:#aaa;font-size:16px;">Click Zelda as many times as you can!</p>
+  <div id="click-count">0</div>
+  <img src="1000000838.jpg" id="click-cat" onclick="clickCat(event)" title="click!">
+  <div class="click-milestone" id="click-milestone"></div>
+  <br>
+  <button class="btn yellow" onclick="resetClicker()">Reset</button>
+</div>
+
+<!-- LASER GAME -->
+<div class="game-card">
+  <h2>🔴 Catch the Laser!</h2>
+  <p style="color:#aaa;font-size:16px;">Click the laser dot before time runs out!</p>
+  <div id="laser-score">Score: 0</div>
+  <div id="laser-timer">⏱ Press Start!</div>
+  <div id="laser-area">
+    <div id="laser-dot" style="display:none" onclick="laserClicked()"></div>
   </div>
+  <button class="btn" onclick="startLaser()">Start Game</button>
+</div>
+
+<!-- TRIVIA -->
+<div class="game-card">
+  <h2>❓ Zelda Trivia</h2>
+  <p style="color:#aaa;font-size:16px;">How well do you know Zelda the cat?</p>
+  <div id="quiz-score">Score: 0 / 0</div>
+  <div id="quiz-question">Press Start to play!</div>
+  <div id="quiz-options"></div>
+  <div id="quiz-result"></div>
+  <br>
+  <button class="btn purple" onclick="startQuiz()">Start Quiz</button>
+</div>
+
+<!-- MEMORY -->
+<div class="game-card">
+  <h2>🧠 Memory Match</h2>
+  <p style="color:#aaa;font-size:16px;">Match all the cat emoji pairs!</p>
+  <div id="mem-moves">Moves: 0</div>
+  <div id="memory-grid"></div>
+  <div id="mem-status"></div>
+  <br>
+  <button class="btn purple" onclick="initMemory()">New Game</button>
+</div>
+
+<div class="section-title">🔒 Secrets</div>
+<div class="box" style="color:#aaa;font-size:17px;">
+  <p>There are hidden secrets on this page... can you find them all? 👀</p>
+  <p style="font-size:14px;color:#555;">Hint: try clicking things, typing on your keyboard, and maybe say hello to Zelda 😼</p>
+  <div id="secrets-found" style="color:var(--purple);font-size:18px;font-weight:bold;margin-top:10px;"></div>
+</div>
+
+<div id="secret-panel">
+  <h2>🌟 You found the secret room!</h2>
+  <p>Zelda says: <em>"meow meow meow meow meow meow."</em></p>
+  <p>Translation: <em>"You are worthy. Here is belly."</em></p>
+  <img src="1000000838.jpg" style="width:200px;border-radius:15px;margin-top:10px;">
+</div>
+
+<script>
+// ── MUSIC ──
+const music = document.getElementById('bg-music');
+const btn   = document.getElementById('play-btn');
+document.addEventListener('click', function startMusic() {
+  music.play().catch(()=>{});
+  btn.textContent = '⏸ Pause Music';
+  document.removeEventListener('click', startMusic);
+}, { once: true });
+function toggleMusic() {
+  if (music.paused) { music.play(); btn.textContent = '⏸ Pause Music'; }
+  else              { music.pause(); btn.textContent = '▶ Play Music'; }
+}
+
+// ── SECRETS ──
+const secretsFound = new Set();
+const secretMessages = {
+  zelda_pet:   '🐾 You petted Zelda!',
+  clicker_100: '💯 100 clicks! She is tired.',
+  clicker_500: '🏆 500 clicks! Absolute legend.',
+  konami:      '🕹️ Konami Code entered!',
+  rainbow:     '🌈 Rainbow mode unlocked!',
+  secret_room: '🚪 Secret room discovered!',
+  meow:        '😼 Zelda heard you say meow!',
+  night_mode:  '🌙 Night owl mode!',
+};
+function unlockSecret(key) {
+  if (secretsFound.has(key)) return;
+  secretsFound.add(key);
+  showToast(secretMessages[key] || '🐱 Secret unlocked!');
+  updateSecretsDisplay();
+  if (key === 'secret_room') document.getElementById('secret-panel').style.display = 'block';
+  if (key === 'rainbow') rainbowMode();
+}
+function showToast(msg) {
+  const t = document.getElementById('secret-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+function updateSecretsDisplay() {
+  document.getElementById('secrets-found').textContent =
+    `Secrets found: ${secretsFound.size} / ${Object.keys(secretMessages).length} 🔓`;
+}
+
+// ── SECRET: CLICK MAIN ZELDA ──
+let mainClickCount = 0;
+document.getElementById('main-zelda').addEventListener('click', e => {
+  mainClickCount++;
+  spawnPaw(e.clientX, e.clientY);
+  if (mainClickCount === 10) unlockSecret('zelda_pet');
+  if (mainClickCount === 30) unlockSecret('secret_room');
+});
+
+// ── SECRET: TRIPLE CLICK H1 ──
+let h1Clicks = 0, h1Last = 0;
+document.getElementById('main-h1').addEventListener('click', () => {
+  const now = Date.now();
+  h1Clicks = (now - h1Last < 500) ? h1Clicks + 1 : 1;
+  h1Last = now;
+  if (h1Clicks >= 3) { h1Clicks = 0; unlockSecret('secret_room'); }
+});
+
+// ── CAT CLICKER ──
+let clicks = 0;
+const milestones = {10:'😸 She likes it!',50:'😹 She is going crazy!',100:'😵 She needs a nap...',250:'💫 Zelda ascends!',500:'👑 You are the chosen one.'};
+function clickCat(e) {
+  clicks++;
+  document.getElementById('click-count').textContent = clicks;
+  spawnPaw(e.clientX, e.clientY);
+  if (milestones[clicks]) {
+    document.getElementById('click-milestone').textContent = milestones[clicks];
+    if (clicks === 100) unlockSecret('clicker_100');
+    if (clicks === 500) unlockSecret('clicker_500');
+  }
+}
+function resetClicker() {
+  clicks = 0;
+  document.getElementById('click-count').textContent = 0;
+  document.getElementById('click-milestone').textContent = '';
+}
+
+// ── LASER GAME ──
+let laserScore = 0, laserTime = 20, laserInterval, laserMoveInterval;
+function startLaser() {
+  laserScore = 0; laserTime = 20;
+  document.getElementById('laser-score').textContent = 'Score: 0';
+  const dot = document.getElementById('laser-dot');
+  dot.style.display = 'block';
+  moveLaser();
+  clearInterval(laserInterval); clearInterval(laserMoveInterval);
+  laserMoveInterval = setInterval(moveLaser, 900);
+  laserInterval = setInterval(() => {
+    laserTime--;
+    document.getElementById('laser-timer').textContent = `⏱ ${laserTime}s`;
+    if (laserTime <= 0) {
+      clearInterval(laserInterval); clearInterval(laserMoveInterval);
+      dot.style.display = 'none';
+      document.getElementById('laser-timer').textContent = `Game over! Final score: ${laserScore} 🐾`;
+    }
+  }, 1000);
+}
+function moveLaser() {
+  const area = document.getElementById('laser-area');
+  const dot  = document.getElementById('laser-dot');
+  dot.style.left = (Math.random() * (area.offsetWidth  - 30)) + 'px';
+  dot.style.top  = (Math.random() * (area.offsetHeight - 30)) + 'px';
+}
+function laserClicked() {
+  laserScore++;
+  document.getElementById('laser-score').textContent = `Score: ${laserScore}`;
+  moveLaser();
+}
+
+// ── TRIVIA ──
+const questions = [
+  {q:"What does Zelda LOVE?",           a:"Catnip and lasers",  opts:["Catnip and lasers","Water","Broccoli","Dogs"]},
+  {q:"What does Zelda destroy?",         a:"The toilet paper",   opts:["The toilet paper","Furniture","Shoes","Books"]},
+  {q:"What does Zelda do at night?",     a:"Makes random sounds", opts:["Makes random sounds","Sleeps quietly","Watches TV","Goes outside"]},
+  {q:"What swings when Zelda walks?",    a:"A belly pouch",      opts:["A bell collar","A belly pouch","A fluffy tail","Long fur"]},
+  {q:"Who made this website?",           a:"LJ",                 opts:["LJ","Dakota","Zelda","Anonymous"]},
+  {q:"What kind of animal is Zelda?",    a:"Cat",                opts:["Cat","Dog","Hamster","Dragon"]},
+];
+let quizIndex = 0, quizScore = 0;
+function startQuiz() {
+  quizIndex = 0; quizScore = 0;
+  document.getElementById('quiz-score').textContent = 'Score: 0 / 0';
+  document.getElementById('quiz-result').textContent = '';
+  showQuestion();
+}
+function showQuestion() {
+  if (quizIndex >= questions.length) {
+    document.getElementById('quiz-question').textContent = `Done! You got ${quizScore}/${questions.length} 🎉`;
+    document.getElementById('quiz-options').innerHTML = '';
+    return;
+  }
+  const q = questions[quizIndex];
+  document.getElementById('quiz-question').textContent = q.q;
+  document.getElementById('quiz-result').textContent = '';
+  const shuffled = [...q.opts].sort(() => Math.random()-0.5);
+  document.getElementById('quiz-options').innerHTML = shuffled
+    .map(o => `<button class="btn" onclick="answerQuiz(this,'${o.replace(/'/g,"\\'")}','${q.a.replace(/'/g,"\\'")}')">${o}</button>`)
+    .join('');
+}
+function answerQuiz(el, chosen, correct) {
+  const right = chosen === correct;
+  if (right) quizScore++;
+  document.getElementById('quiz-result').textContent = right ? '✅ Correct!' : `❌ It was: ${correct}`;
+  quizIndex++;
+  document.getElementById('quiz-score').textContent = `Score: ${quizScore} / ${quizIndex}`;
+  setTimeout(showQuestion, 1100);
+}
+
+// ── MEMORY ──
+const emojiSet = ['🐱','🐾','🎀','💕','🌙','⭐','🐟','🧶'];
+let memFlipped = [], memMatched = 0, memMoves = 0, memLock = false;
+function initMemory() {
+  const pairs = [...emojiSet,...emojiSet].sort(() => Math.random()-0.5);
+  memFlipped = []; memMatched = 0; memMoves = 0; memLock = false;
+  document.getElementById('mem-moves').textContent = 'Moves: 0';
+  document.getElementById('mem-status').textContent = '';
+  const grid = document.getElementById('memory-grid');
+  grid.innerHTML = '';
+  pairs.forEach((emoji, i) => {
+    const card = document.createElement('div');
+    card.className = 'mem-card';
+    card.dataset.emoji = emoji;
+    card.textContent = '❓';
+    card.addEventListener('click', () => flipCard(card));
+    grid.appendChild(card);
+  });
+}
+function flipCard(card) {
+  if (memLock || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+  card.textContent = card.dataset.emoji;
+  card.classList.add('flipped');
+  memFlipped.push(card);
+  if (memFlipped.length === 2) {
+    memMoves++;
+    document.getElementById('mem-moves').textContent = `Moves: ${memMoves}`;
+    memLock = true;
+    const [a, b] = memFlipped;
+    if (a.dataset.emoji === b.dataset.emoji) {
+      a.classList.add('matched'); b.classList.add('matched');
+      memMatched++; memFlipped = []; memLock = false;
+      if (memMatched === emojiSet.length)
+        document.getElementById('mem-status').textContent = `🎉 You won in ${memMoves} moves!`;
+    } else {
+      setTimeout(() => {
+        a.textContent = '❓'; b.textContent = '❓';
+        a.classList.remove('flipped'); b.classList.remove('flipped');
+        memFlipped = []; memLock = false;
+      }, 900);
+    }
+  }
+}
+initMemory();
+
+// ── SECRET: KONAMI CODE ──
+const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+let konamiIdx = 0;
+document.addEventListener('keydown', e => {
+  konamiIdx = (e.key === konami[konamiIdx]) ? konamiIdx + 1 : 0;
+  if (konamiIdx === konami.length) { konamiIdx = 0; unlockSecret('konami'); emojiRain('🐱', 40); }
+});
+
+// ── SECRET: TYPE "meow" or "zelda" or "night" ──
+let typedBuffer = '';
+document.addEventListener('keypress', e => {
+  typedBuffer = (typedBuffer + e.key.toLowerCase()).slice(-10);
+  if (typedBuffer.includes('meow'))  { typedBuffer=''; unlockSecret('meow');  emojiRain('😸', 20); }
+  if (typedBuffer.includes('zelda')) { typedBuffer=''; unlockSecret('rainbow'); }
+  if (typedBuffer.includes('night')) { typedBuffer=''; unlockSecret('night_mode'); document.body.style.background='#000010'; }
+});
+
+// ── EMOJI RAIN ──
+function emojiRain(emoji, count) {
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'emoji-rain';
+      el.textContent = emoji;
+      el.style.left = (Math.random()*100) + 'vw';
+      el.style.animationDuration = (1.5 + Math.random()*2) + 's';
+      el.style.fontSize = (20 + Math.random()*20) + 'px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 4000);
+    }, Math.random()*1500);
+  }
+}
+
+// ── CURSOR TRAIL ──
+document.addEventListener('mousemove', e => {
+  const dot = document.createElement('div');
+  dot.className = 'trail-dot';
+  dot.style.left = (e.clientX - 5) + 'px';
+  dot.style.top  = (e.clientY - 5) + 'px';
+  dot.style.background = `hsl(${Math.random()*60+300},100%,80%)`;
+  document.body.appendChild(dot);
+  requestAnimationFrame(() => dot.style.opacity = '0');
+  setTimeout(() => dot.remove(), 500);
+});
+
+// ── PAW BURST ──
+function spawnPaw(x, y) {
+  const el = document.createElement('div');
+  el.className = 'paw-burst';
+  el.textContent = '🐾';
+  el.style.left = (x - 14) + 'px';
+  el.style.top  = (y - 14) + 'px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 700);
+}
+
+// ── RAINBOW MODE ──
+function rainbowMode() {
+  let hue = 0;
+  setInterval(() => {
+    hue = (hue + 1) % 360;
+    document.getElementById('main-h1').style.color = `hsl(${hue},100%,75%)`;
+    document.getElementById('main-h1').style.textShadow = `0 0 30px hsl(${hue},100%,60%)`;
+  }, 20);
+}
+</script>
 </body>
 </html>
